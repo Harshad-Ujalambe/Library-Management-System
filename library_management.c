@@ -67,3 +67,139 @@ int main()
 
     return 0;
 }
+
+void issueBook()
+{
+    FILE *fp, *temp;
+    struct Book b;
+
+    char issueBookName[100];
+    char studentName[100];
+
+    int found = 0;
+
+    fp = fopen("books.csv", "r");
+    temp = fopen("temp.csv", "w");
+
+    if (fp == NULL || temp == NULL)
+    {
+        printf("\nError opening file!\n");
+        return;
+    }
+
+    printf("\nEnter Book Name to Issue: ");
+    scanf(" %[^\n]", issueBookName);
+
+    printf("Enter Student Name: ");
+    scanf(" %[^\n]", studentName);
+
+    while (fscanf(fp,
+                  "%d,%99[^,],%99[^,],%d\n",
+                  &b.id,
+                  b.name,
+                  b.author,
+                  &b.quantity) == 4)
+    {
+        if (strcmp(b.name, issueBookName) == 0)
+        {
+            found = 1;
+
+            if (b.quantity > 0)
+            {
+                b.quantity--;
+
+                printf("\n========== BOOK ISSUED ==========\n");
+
+                printf("Student Name : %s\n", studentName);
+                printf("Book Name    : %s\n", b.name);
+                printf("Remaining Qty: %d\n", b.quantity);
+            }
+            else
+            {
+                printf("\nBook Out of Stock!\n");
+            }
+        }
+
+        fprintf(temp,
+                "%d,%s,%s,%d\n",
+                b.id,
+                b.name,
+                b.author,
+                b.quantity);
+    }
+
+    fclose(fp);
+    fclose(temp);
+
+    remove("books.csv");
+    rename("temp.csv", "books.csv");
+
+    if (!found)
+    {
+        printf("\nBook not found!\n");
+    }
+}
+
+void returnBook()
+{
+    FILE *fp, *temp;
+    struct Book b;
+
+    char returnBookName[100];
+    char studentName[100];
+
+    int found = 0;
+
+    fp = fopen("books.csv", "r");
+    temp = fopen("temp.csv", "w");
+
+    if (fp == NULL || temp == NULL)
+    {
+        printf("\nError opening file!\n");
+        return;
+    }
+
+    printf("\nEnter Book Name to Return: ");
+    scanf(" %[^\n]", returnBookName);
+
+    printf("Enter Student Name: ");
+    scanf(" %[^\n]", studentName);
+
+    while (fscanf(fp,
+                  "%d,%99[^,],%99[^,],%d\n",
+                  &b.id,
+                  b.name,
+                  b.author,
+                  &b.quantity) == 4)
+    {
+        if (strcmp(b.name, returnBookName) == 0)
+        {
+            b.quantity++;
+            found = 1;
+
+            printf("\n========== BOOK RETURNED ==========\n");
+
+            printf("Student Name : %s\n", studentName);
+            printf("Book Name    : %s\n", b.name);
+            printf("Updated Qty  : %d\n", b.quantity);
+        }
+
+        fprintf(temp,
+                "%d,%s,%s,%d\n",
+                b.id,
+                b.name,
+                b.author,
+                b.quantity);
+    }
+
+    fclose(fp);
+    fclose(temp);
+
+    remove("books.csv");
+    rename("temp.csv", "books.csv");
+
+    if (!found)
+    {
+        printf("\nBook not found!\n");
+    }
+}

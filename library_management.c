@@ -8,6 +8,7 @@ struct Book
     char name[100];
     char author[100];
     int quantity;
+    
 };
 
 void addBook();

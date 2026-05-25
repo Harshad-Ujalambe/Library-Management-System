@@ -68,7 +68,42 @@ int main()
 
     return 0;
 }
+void addBook()
+{
+    FILE *fp;
+    struct Book b;
 
+    fp = fopen("books.csv", "a");
+
+    if (fp == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf("\nEnter Book ID: ");
+    scanf("%d", &b.id);
+
+    printf("Enter Book Name: ");
+    scanf(" %[^\n]", b.name);
+
+    printf("Enter Author Name: ");
+    scanf(" %[^\n]", b.author);
+
+    printf("Enter Quantity: ");
+    scanf("%d", &b.quantity);
+
+    fprintf(fp,
+            "%d,%s,%s,%d\n",
+            b.id,
+            b.name,
+            b.author,
+            b.quantity);
+
+    fclose(fp);
+
+    printf("\nBook Added Successfully!\n");
+}
 void displayBooks()
 {
 FILE *fp;

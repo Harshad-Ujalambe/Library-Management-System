@@ -69,6 +69,54 @@ int main()
     return 0;
 }
 
+void searchBook()
+{
+FILE *fp;
+struct Book b;
+char searchName[100];
+int found = 0;
+fp = fopen("books.csv", "r");
+if (fp == NULL)
+{
+printf("\nFile not found!\n");
+return;
+}
+printf("\nEnter Book Name to Search: ");
+scanf(" %[^\n]", searchName);
+while (fscanf(fp,
+"%d,%99[^,],%99[^,],%d\n",
+&b.id
+,
+b.name
+,
+b.author
+,
+&b.quantity) == 4)
+{
+if (strcmp(b.name
+, searchName) == 0)
+{
+printf("\n========== BOOK FOUND 
+==========\n");
+printf("Book ID : %d\n", b.id
+);
+printf("Book Name : %s\n", b.name
+);
+printf("Author : %s\n", b.author
+);
+printf("Quantity : %d\n", b.quantity);
+found = 1;
+break;
+}
+}
+if (!found)
+{
+printf("\nBook not found!\n");
+}
+fclose(fp);
+}
+
+
 void issueBook()
 {
     FILE *fp, *temp;

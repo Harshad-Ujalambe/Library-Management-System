@@ -114,8 +114,7 @@ if (fp == NULL)
 printf("\nNo records found!\n");
 return;
 }
-printf("\n================ BOOK RECORDS 
-================\n");
+printf("\n================ BOOK RECORDS ================\n");
 printf("\n%-10s %-25s %-25s %-10s\n",
 "ID",
 "BOOK NAME",
@@ -171,8 +170,7 @@ b.author
 if (strcmp(b.name
 , searchName) == 0)
 {
-printf("\n========== BOOK FOUND 
-==========\n");
+printf("\n========== BOOK FOUND ==========\n");
 printf("Book ID : %d\n", b.id
 );
 printf("Book Name : %s\n", b.name
